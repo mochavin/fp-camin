@@ -35,3 +35,6 @@ Route::post('tasklist/add', [TaskListController::class, 'store'])->name('tasklis
 // Route::get('tasklist/edit', [TaskListController::class, 'editview'])->name('tasklist.edit');
 Route::get('tasklist/{id}/edit', [TaskListController::class, 'edit'])->name('tasklist.edit');
 Route::put('tasklist/{id}', [TaskListController::class, 'update'])->name('tasklist.update');
+
+Route::get('task/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
+Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
