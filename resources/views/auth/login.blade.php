@@ -37,6 +37,10 @@
         </ul>
       </div>
       @endif
+
+      <div class="mt-4">
+        <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Register</a>
+      </div>
     </div>
   </div>
 </body>
