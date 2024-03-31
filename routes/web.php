@@ -32,3 +32,6 @@ Route::put('tasklist/{id}', [TaskListController::class, 'update'])->name('taskli
 Route::delete('tasklist/{id}', [TaskListController::class, 'destroy'])->name('tasklist.destroy');
 Route::delete('task/{id}', [TaskController::class, 'delete'])->name('task.delete');
 Route::post('tasklist/add', [TaskListController::class, 'store'])->name('tasklist.store');
+// Route::get('tasklist/edit', [TaskListController::class, 'editview'])->name('tasklist.edit');
+Route::get('tasklist/{id}/edit', [TaskListController::class, 'edit'])->name('tasklist.edit');
+Route::put('tasklist/{id}', [TaskListController::class, 'update'])->name('tasklist.update');

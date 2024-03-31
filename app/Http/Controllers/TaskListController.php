@@ -65,4 +65,42 @@ class TaskListController extends Controller
 
     return redirect()->route('dashboard');
   }
+
+  public function editview($task_list_id)
+  {
+    $taskList = TaskList::findOrFail($task_list_id);
+    error_log('taskList: ' . $taskList);
+
+    // Check if the authenticated user owns the task list
+    if ($taskList->user_id !== auth()->id()) {
+      abort(403, 'Unauthorized access.'); // Return a 403 Forbidden response
+    }
+
+    return view('tasklist.edit', ['taskList' => $taskList]);
+  }
+
+  public function edit($id)
+  {
+    $taskList = TaskList::findOrFail($id);
+
+    // Check if the authenticated user owns the task list
+    if ($taskList->user_id !== auth()->id()) {
+      abort(403, 'Unauthorized access.');
+    }
+
+    return view('tasklist.edit', ['taskList' => $taskList]);
+  }
+  public function update(Request $request, $id)
+  {
+    $taskList = TaskList::findOrFail($id);
+
+    // Check if the authenticated user owns the task list
+    if ($taskList->user_id !== auth()->id()) {
+      abort(403, 'Unauthorized access.');
+    }
+
+    $taskList->update($request->all());
+
+    return redirect()->route('dashboard');
+  }
 }

@@ -27,13 +27,18 @@
     @foreach ($taskLists as $task)
     <li class="px-4 py-3 hover:bg-gray-100 flex items-center">
       <a href="{{ route('tasklist.show', ['id' => $task->id]) }}" class="text-blue-600 hover:underline">{{ $task->tasklist_name }}</a>
-      <form action="{{ route('tasklist.destroy', ['id' => $task->id]) }}" method="POST" class="ml-auto">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="mx-1 text-red-500 hover:text-red-700">
-          <i class="fas fa-trash" style="padding: 0 5px;"></i>
-        </button>
-      </form>
+      <div class="ml-auto flex">
+        <a href="{{ route('tasklist.edit', ['id' => $task->id]) }}" class="mx-1 text-yellow-500 hover:text-yellow-700">
+          <i class="fas fa-edit" style="padding: 0 5px;"></i>
+        </a>
+        <form action="{{ route('tasklist.destroy', ['id' => $task->id]) }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="mx-1 text-red-500 hover:text-red-700">
+            <i class="fas fa-trash" style="padding: 0 5px;"></i>
+          </button>
+        </form>
+      </div>
     </li>
     @endforeach
   </ul>

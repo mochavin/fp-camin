@@ -20,6 +20,7 @@
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <!-- Your logo here -->
+              <a href="/" class="text-white text-2xl font-bold">To do</a>
             </div>
           </div>
           <div class="ml-4 flex items-center md:ml-6">
@@ -36,6 +37,11 @@
   </header>
 
   <main class="lg:mx-48 lg:my-24 my-12 mx-4">
+    @if (!request()->is('dashboard') && auth()->check())
+    <div class="mb-4">
+      <a href="{{ route('dashboard') }}" class="text-blue-500 hover:underline">Dashboard</a>
+    </div>
+    @endif
     @yield('content')
   </main>
 

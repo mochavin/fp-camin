@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="dashboard mb-4">
-  <a href="/dashboard" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md mt-2">Go to Dashboard</a>
-</div>
 <ul class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-4">
   <li class="border-b border-gray-200">
     <h1 class="font-bold text-lg px-6 py-4 bg-gray-100">{{ $taskList->tasklist_name }}</h1>
