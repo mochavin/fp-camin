@@ -38,3 +38,5 @@ Route::put('tasklist/{id}', [TaskListController::class, 'update'])->name('taskli
 
 Route::get('task/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
 Route::put('task/{id}', [TaskController::class, 'update'])->name('task.update');
+Route::get('/task/search', [TaskController::class, 'search'])->name('task.search');
+Route::get('/task/status/{status}', [TaskController::class, 'index'])->name('task.index');

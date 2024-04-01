@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
-<body class="min-h-screen">
+<body>
   <header>
-    <nav class="bg-gray-800">
+    <nav class="bg-gray-800 fixed top-0 left-0 right-0 opacity-95">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
@@ -36,13 +36,15 @@
     </nav>
   </header>
 
-  <main class="lg:mx-48 lg:my-24 my-12 mx-4">
+  <main class="lg:mx-48 lg:my-24 my-24 mx-4">
     @yield('content')
   </main>
 
-  <footer class="bg-gray-200 py-4">
+  <footer class="bg-gray-200 py-4 bottom-0 right-0 left-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-gray-500">Footer</p>
+      <div class="container mx-auto">
+        <p class="text-center">© 2024 To do App. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 </body>

@@ -48,4 +48,24 @@ class TaskController extends Controller
 
     return redirect()->route('tasklist.show', ['id' => $task->task_list_id]);
   }
+
+  public function search(Request $request)
+  {
+    $search = $request->get('search');
+    $tasks = Task::where('task_name', 'like', '%' . $search . '%')
+      ->whereHas('taskList', function ($query) {
+        $query->where('user_id', auth()->id());
+      })
+      ->orderByRaw("FIELD(task_status, 'doing', 'pending', 'completed')")->with('taskList')
+      ->get();
+    return view('dashboard', ['tasks' => $tasks, 'search' => $search]);
+  }
+
+  public function index($status)
+  {
+    $tasks = Task::whereHas('taskList', function ($query) {
+      $query->where('user_id', auth()->id());
+    })->where('task_status', $status)->with('taskList')->get();
+    return view('dashboard', ['tasks_filtered' => $tasks]);
+  }
 }

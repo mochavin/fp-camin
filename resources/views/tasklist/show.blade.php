@@ -1,30 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-<ul class="bg-white rounded-lg shadow-lg overflow-hidden p-4">
-  <li class="border-b border-gray-200">
-    <h1 class="font-bold text-lg px-6 py-4 bg-gray-100">{{ $taskList->tasklist_name }}</h1>
+<ul class="bg-white rounded-lg shadow-lg p-4 flex flex-col min-w-[200px] mx-auto w-fit">
+  <li class="border-b border-gray-100 bg-gray-100  flex items-center justify-between">
+    <h1 class="font-bold text-lg px-6 py-4">{{ $taskList->tasklist_name }}</h1>
+    <form action="{{ route('tasklist.destroy', ['id' => $taskList->id]) }}" method="POST" class="flex items-center px-6">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="text-red-500 hover:text-red-700 flex items-center gap-2 font-semibold" onclick="return confirm('Are you sure you want to delete all tasks?')">
+        <p>Delete All</p>
+        <i class="fas fa-trash"></i>
+      </button>
+    </form>
   </li>
   <table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-      <tr>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-      </tr>
-    </thead>
     <tbody class="bg-white divide-y divide-gray-200">
-      @foreach ($tasks as $task)
+      @foreach ($tasks as $status => $tasksGroup)
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap">{{ $task['task_name'] }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          @if ($task['task_status'] === 'in_progress')
+        <td colspan="2" class="px-6 py-1 whitespace-nowrap font-bold bg-gray-200">
+          @if ($status === 'in_progress')
           doing
           @else
-          {{ $task['task_status'] }}
+          {{ $status }}
           @endif
         </td>
-        <td class="px-6 py-4 whitespace-nowrap flex">
+      </tr>
+      @foreach ($tasksGroup as $task)
+      <tr class="hover:bg-gray-100 flex justify-between ">
+        <td class="px-6 py-1  text-wrap">{{ $task['task_name'] }}</td>
+        <td class="px-6 py-1 whitespace-nowrap flex">
           <a href="{{ route('task.edit', ['id' => $task['id']]) }}" class="mx-1 text-blue-500 hover:text-blue-700">
             <i class="fas fa-edit"></i>
           </a>
@@ -37,6 +41,7 @@
           </form>
         </td>
       </tr>
+      @endforeach
       @endforeach
     </tbody>
   </table>

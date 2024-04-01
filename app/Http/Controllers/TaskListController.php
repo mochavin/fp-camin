@@ -17,8 +17,14 @@ class TaskListController extends Controller
       abort(403, 'Unauthorized access.'); // Return a 403 Forbidden response
     }
 
-    $tasks = Task::where('task_list_id', $task_list_id)->get();
+    $tasks = Task::where('task_list_id', $task_list_id)->get()->groupBy('task_status');
+    $order = ['in_progress', 'pending', 'completed']; // Define your custom order here
+
+    $tasks = $tasks->sortBy(function ($value, $key) use ($order) {
+      return array_search($key, $order);
+    });
     $taskArray = $tasks->toArray();
+
 
     return view('tasklist.show', ['taskList' => $taskList, 'tasks' => $taskArray]);
   }
@@ -60,7 +66,7 @@ class TaskListController extends Controller
     $taskList = new TaskList();
     $taskList->tasklist_name = $request->tasklist_name;
     $taskList->user_id = auth()->id();
-    $taskList->tasklist_description = $request->tasklist_description;
+    $taskList->tasklist_description = $request->tasklist_description ? $request->tasklist_description : '';
     $taskList->save();
 
     return redirect()->route('dashboard');
